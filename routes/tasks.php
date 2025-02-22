@@ -19,7 +19,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
         createTask($user_id);
         break;
         
-    //DELETE, PUT, etc...
+    case 'PUT':
+        // Actualizar una tarea
+        $task_id = $_GET['id']; // Asegúrate de que el ID esté presente en la URL
+        updateTask($user_id, $task_id);
+        break;
+
+    case 'DELETE':
+        // Eliminar una tarea
+        $task_id = $_GET['id'];
+        deleteTask($user_id, $task_id);
+        break;
+    
     default:
         echo "Ha ocurrido un error";
 }

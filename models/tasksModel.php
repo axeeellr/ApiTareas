@@ -20,6 +20,17 @@ function addTask($user_id, $title, $description) {
     return false;
 }
 
-//Actualizar, editar, etc...
+//Actualizar tarea
+function editTask($user_id, $title, $description, $status, $task_id) {
+    global $conn;
+    $stmt = $conn->prepare("UPDATE tasks SET title = ?, description = ?, status = ? WHERE id = ? AND user_id = ?");
+    return $stmt->execute([$title, $description, $status, $task_id, $user_id]);
+}
 
+//Eliminar tarea
+function removeTask($user_id, $task_id){
+    global $conn;
+    $stmt = $conn->prepare("DELETE FROM tasks WHERE id = ? AND user_id = ?");
+    return $stmt -> execute([$task_id, $user_id]);
+}
 ?>

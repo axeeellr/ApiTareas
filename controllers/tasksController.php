@@ -24,5 +24,26 @@ function createTask($user_id) {
     }
 }
 
-//Editar tareas, eliminar, filtrar, etc...
+//Actualizar una tarea
+function updateTask($user_id, $task_id){
+    $data = json_decode(file_get_contents("php://input"), true);
+    $title = $data['title'] ?? '';
+    $description = $data['description'] ?? '';
+    $status = $data['status'] ?? 'pendiente';
+
+    if (editTask($user_id, $title, $description, $status, $task_id)) {
+        echo json_encode(["message" => "Tarea actualizada exitosamente"]);
+    }else{
+        echo json_encode(["error" => "Error al actualizar la tarea"]);
+    }
+}
+
+//Eliminar tarea
+function deleteTask($user_id, $task_id){
+    if (removeTask($user_id, $task_id)) {
+        echo json_encode(["message" => "Tarea eliminada exitosamente"]);
+    }else{
+        echo json_encode(["error" => "Error al eliminar la tarea"]);
+    }
+}
 ?>
